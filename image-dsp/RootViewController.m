@@ -9,7 +9,7 @@
 #import "RootViewController.h"
 #import "DisplayImageVc.h"
 
-#import "UIImage+Dsp.h"
+#import "UIImage+DSP.h"
 
 @implementation RootViewController
 

@@ -21,7 +21,7 @@ typedef enum {
 } DSPMatrixSize;
 
 
-@interface UIImage (UIImage_Dsp)
+@interface UIImage (UIImage_DSP)
 
 // return auto-released gaussian blurred image
 -(UIImage*) imageByApplyingGaussianBlur3x3;

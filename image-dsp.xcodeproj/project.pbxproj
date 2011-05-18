@@ -18,7 +18,7 @@
 		493252CF1383938300D8B4F1 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493252CD1383938300D8B4F1 /* RootViewController.xib */; };
 		493252D8138393AB00D8B4F1 /* DisplayImageVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 493252D6138393AB00D8B4F1 /* DisplayImageVc.m */; };
 		493252D9138393AB00D8B4F1 /* DisplayImageVc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493252D7138393AB00D8B4F1 /* DisplayImageVc.xib */; };
-		493252DC138393EC00D8B4F1 /* UIImage+Dsp.m in Sources */ = {isa = PBXBuildFile; fileRef = 493252DB138393EC00D8B4F1 /* UIImage+Dsp.m */; };
+		493252DC138393EC00D8B4F1 /* UIImage+DSP.m in Sources */ = {isa = PBXBuildFile; fileRef = 493252DB138393EC00D8B4F1 /* UIImage+DSP.m */; };
 		493252E61383942B00D8B4F1 /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = 493252E51383942B00D8B4F1 /* image.png */; };
 		493252E81383969E00D8B4F1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 493252E71383969E00D8B4F1 /* Accelerate.framework */; };
 /* End PBXBuildFile section */
@@ -41,8 +41,8 @@
 		493252D5138393AB00D8B4F1 /* DisplayImageVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayImageVc.h; sourceTree = "<group>"; };
 		493252D6138393AB00D8B4F1 /* DisplayImageVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayImageVc.m; sourceTree = "<group>"; };
 		493252D7138393AB00D8B4F1 /* DisplayImageVc.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisplayImageVc.xib; sourceTree = "<group>"; };
-		493252DA138393EC00D8B4F1 /* UIImage+Dsp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Dsp.h"; sourceTree = "<group>"; };
-		493252DB138393EC00D8B4F1 /* UIImage+Dsp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Dsp.m"; sourceTree = "<group>"; };
+		493252DA138393EC00D8B4F1 /* UIImage+DSP.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "UIImage+DSP.h"; sourceTree = "<group>"; };
+		493252DB138393EC00D8B4F1 /* UIImage+DSP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DSP.m"; sourceTree = "<group>"; };
 		493252E51383942B00D8B4F1 /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
 		493252E71383969E00D8B4F1 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -115,8 +115,8 @@
 		49CAB40913840EDB00CA934B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				493252DA138393EC00D8B4F1 /* UIImage+Dsp.h */,
-				493252DB138393EC00D8B4F1 /* UIImage+Dsp.m */,
+				493252DA138393EC00D8B4F1 /* UIImage+DSP.h */,
+				493252DB138393EC00D8B4F1 /* UIImage+DSP.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -219,7 +219,7 @@
 				493252C61383938200D8B4F1 /* image_dspAppDelegate.m in Sources */,
 				493252CC1383938300D8B4F1 /* RootViewController.m in Sources */,
 				493252D8138393AB00D8B4F1 /* DisplayImageVc.m in Sources */,
-				493252DC138393EC00D8B4F1 /* UIImage+Dsp.m in Sources */,
+				493252DC138393EC00D8B4F1 /* UIImage+DSP.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

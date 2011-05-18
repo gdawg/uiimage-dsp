@@ -11,7 +11,7 @@
 #import <Accelerate/Accelerate.h>
 
 
-@implementation UIImage (UIImage_Dsp)
+@implementation UIImage (UIImage_DSP)
 
 // forward definitions of our utility methods so the important stuff's at the top
 CGContextRef _dsp_utils_CreateARGBBitmapContext (CGImageRef inImage);
