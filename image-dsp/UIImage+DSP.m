@@ -108,6 +108,8 @@ void _releaseDspData(void *info,const void *data,size_t size);
                                            dataProvider, NULL, true, kCGRenderingIntentDefault);
         destImg = [UIImage imageWithCGImage:cgImage];
         
+        CGImageRelease(cgImage);
+        
         // clear all our cg stuff
         CGDataProviderRelease(dataProvider);
         CGContextRelease(context); 
@@ -213,10 +215,10 @@ void _releaseDspData(void *info,const void *data,size_t size);
     UIImage* result = self;
     
     // apply this kernel horizontally
-    result = [self imageByApplyingMatrix:kernel ofSize:DSPMatrixSizeCustom matrixRows:1 matrixCols:kernelSize clipValues:NO];
+    result = [result imageByApplyingMatrix:kernel ofSize:DSPMatrixSizeCustom matrixRows:1 matrixCols:kernelSize clipValues:NO];
     
     // then vertically
-    result = [self imageByApplyingMatrix:kernel ofSize:DSPMatrixSizeCustom matrixRows:kernelSize matrixCols:1 clipValues:NO];
+    result = [result imageByApplyingMatrix:kernel ofSize:DSPMatrixSizeCustom matrixRows:kernelSize matrixCols:1 clipValues:NO];
     
     return result;
 }
