@@ -10,6 +10,11 @@
 #import "UIImage+Dsp.h"
 #import <Accelerate/Accelerate.h>
 
+#import <math.h>
+
+// utility to find position for x/y values in a matrix
+#define DSP_KERNEL_POSITION(x,y,size) (x * size + y)
+
 
 @implementation UIImage (UIImage_DSP)
 
@@ -119,12 +124,14 @@ void _releaseDspData(void *info,const void *data,size_t size);
     return [self imageByApplyingMatrix:matrix ofSize:matrixSize matrixRows:-1 matrixCols:-1 clipValues:shouldClip];
 }
 
+// uses a pre-calculated kernel
 -(UIImage*) imageByApplyingGaussianBlur3x3 {
     static const float kernel[] = { 1/16.0f, 2/16.0f, 1/16.0f, 2/16.0f, 4/16.0f, 2/16.0f, 1/16.0f, 2/16.0f, 1/16.0f };
 
     return [self imageByApplyingMatrix:(float*)kernel ofSize:DSPMatrixSize3x3];
 }
 
+// uses a pre-calculated kernel
 -(UIImage*) imageByApplyingGaussianBlur5x5 {
     static float kernel[] = 
     { 1/256.0f,  4/256.0f,  6/256.0f,  4/256.0f, 1/256.0f,
@@ -134,6 +141,84 @@ void _releaseDspData(void *info,const void *data,size_t size);
         1/256.0f,  4/256.0f,  6/256.0f,  4/256.0f, 1/256.0f };
 
     return [self imageByApplyingMatrix:(float*)kernel ofSize:DSPMatrixSize5x5];
+}
+
+// utility for calculating 2d gaussian distribution values for generating arrays
+-(float) gausValueAt:(float)x andY:(float)y andSigmaSq:(float)sigmaSq {
+    float powerResult =  pow(M_E, -( (x*x+y*y) / (2*sigmaSq) ));
+    float result = ( 1/(sqrt(2*M_PI*sigmaSq)) ) * powerResult; 
+    return result;
+}
+
+// arbitrary sized gaussian blur
+-(UIImage*) imageByApplyingOnePassGaussianBlurOfSize:(int)kernelSize withSigmaSquared:(float)sigmaSq {
+    float kernel[kernelSize * kernelSize];
+    int halfSize = (int)(0.5 * kernelSize);
+    float sum = 0.0;
+    
+    // generate the gaussian distribution
+    for (int i=0; i<kernelSize; i++) {
+        for (int j=0; j<kernelSize; j++) {
+            float xDistance = 1.0 * i - halfSize;
+            float yDistance = 1.0 * j - halfSize;
+            float gausValue = [self gausValueAt:xDistance andY:yDistance andSigmaSq:sigmaSq];
+     
+            kernel[DSP_KERNEL_POSITION(i, j, kernelSize)] = gausValue;
+            
+            sum += gausValue;
+        }
+    }
+    
+    // normalise to avoid distorting brightness
+    for (int i=0; i<kernelSize; i++) {
+        for (int j=0; j<kernelSize; j++) {
+            float gausValue = kernel[DSP_KERNEL_POSITION(i, j, kernelSize)];
+            float normal = gausValue / sum;
+            
+            kernel[DSP_KERNEL_POSITION(i, j, kernelSize)] = normal;
+        }
+    }
+
+    // apply the generated kernel
+    return [self imageByApplyingMatrix:kernel ofSize:DSPMatrixSizeCustom matrixRows:kernelSize matrixCols:kernelSize clipValues:NO];
+}
+
+// ----------- Fast 2 pass Gaussian blur 
+-(float) gaussianValueFor:(float)i withSigmaSq:(float)sigmaSq {
+    float powerResult =  pow(M_E, -( (i*i) / (2*sigmaSq) ));
+    float result = ( 1/(sqrt(2*M_PI*sigmaSq)) ) * powerResult; 
+    return result;
+}
+-(UIImage*) imageByApplyingGaussianBlurOfSize:(int)kernelSize withSigmaSquared:(float)sigmaSq {
+    float kernel[kernelSize];
+    int halfSize = (int)(0.5 * kernelSize);
+    float sum = 0.0;
+
+    for (int i=0; i<kernelSize; i++) {
+        float distance = 1.0 * i - halfSize;
+        float gausValue = [self gaussianValueFor:distance withSigmaSq:sigmaSq];
+        
+        kernel[i] = gausValue;
+        
+        sum += gausValue;
+    }
+    // normalise to avoid distorting brightness
+    for (int i=0; i<kernelSize; i++) {
+        float gausValue = kernel[i];
+        float normal = gausValue / sum;
+        
+        kernel[i] = normal;
+    }
+
+    UIImage* result = self;
+    
+    // apply this kernel horizontally
+    result = [self imageByApplyingMatrix:kernel ofSize:DSPMatrixSizeCustom matrixRows:1 matrixCols:kernelSize clipValues:NO];
+    
+    // then vertically
+    result = [self imageByApplyingMatrix:kernel ofSize:DSPMatrixSizeCustom matrixRows:kernelSize matrixCols:1 clipValues:NO];
+    
+    return result;
 }
 
 

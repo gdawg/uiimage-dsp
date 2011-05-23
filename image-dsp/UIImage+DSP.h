@@ -27,6 +27,16 @@ typedef enum {
 -(UIImage*) imageByApplyingGaussianBlur3x3;
 -(UIImage*) imageByApplyingGaussianBlur5x5;
 
+// gaussian blur with arbitrary kernel size and sigma (controlling the std deviation => spread => blur amount)
+// higher sigmaSq values result in more blur... experiment to find something appropriate for your application,
+// for kernel size of 8 you might try 30 to start
+-(UIImage*) imageByApplyingGaussianBlurOfSize:(int)kernelSize withSigmaSquared:(float)sigmaSq;
+
+// methods are provided for both a two pass (default) and one pass gaussian blur but the two pass is STRONGLY
+// recomended due to mathematical equivallence and greatly increased speed for large kernels
+// as such I've left this commented out by default
+// -(UIImage*) imageByApplyingOnePassGaussianBlurOfSize:(int)kernelSize withSigmaSquared:(float)sigmaSq;
+
 // sharpening
 -(UIImage*) imageByApplyingSharpen3x3;
 
