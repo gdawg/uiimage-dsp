@@ -23,12 +23,22 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    switch (section) {
+        case 0:
+            return 5;
+            break;
+        case 1:
+            return 1;
+            
+        default:
+            break;
+    }
+    return -1;
 }
 
 // Customize the appearance of table view cells.
@@ -42,25 +52,42 @@
     }
 
     // Configure the cell.
-    switch (indexPath.row) {
+    switch (indexPath.section) {
         case 0:
-            cell.textLabel.text = @"Gaussian Blur 3x3";
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = @"Gaussian Blur 3x3";
+                    break;
+                    
+                case 1:
+                    cell.textLabel.text = @"Gaussian Blur 5x5";
+                    break;
+                    
+                case 2:
+                    cell.textLabel.text = @"Box Blur 3x3";
+                    break;
+                    
+                case 3:
+                    cell.textLabel.text = @"Sharpen 3x3";
+                    break;
+                    
+                case 4:
+                    cell.textLabel.text = @"Emboss 3x3";
+                    break;
+                    
+                default:
+                    break;
+            }
             break;
-            
         case 1:
-            cell.textLabel.text = @"Gaussian Blur 5x5";
-            break;
-            
-        case 2:
-            cell.textLabel.text = @"Box Blur 3x3";
-            break;
-            
-        case 3:
-            cell.textLabel.text = @"Sharpen 3x3";
-            break;
-            
-        case 4:
-            cell.textLabel.text = @"Emboss 3x3";
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = @"Gaussian Blur 9x9";
+                    break;
+                    
+                default:
+                    break;
+            }
             break;
             
         default:
@@ -81,25 +108,40 @@
     vc.src = [[UIImage imageNamed:@"image.png"] retain];
 
     // transform as selected
-    switch (indexPath.row) {
+    switch (indexPath.section) {
         case 0:
-            vc.dest = [[vc.src imageByApplyingGaussianBlur3x3] retain];
+            switch (indexPath.row) {
+                case 0:
+                    vc.dest = [[vc.src imageByApplyingGaussianBlur3x3] retain];
+                    break;
+                    
+                case 1:
+                    vc.dest = [[vc.src imageByApplyingGaussianBlur5x5] retain];
+                    break;
+                    
+                case 2:
+                    vc.dest = [[vc.src imageByApplyingBoxBlur3x3] retain];
+                    break;
+                    
+                case 3:
+                    vc.dest = [[vc.src imageByApplyingSharpen3x3] retain];
+                    break;
+                    
+                case 4:
+                    vc.dest = [[vc.src imageByApplyingEmboss3x3] retain];
+                    break;
+                    
+                default:
+                    break;
+            }
             break;
-            
         case 1:
-            vc.dest = [[vc.src imageByApplyingGaussianBlur5x5] retain];
-            break;
-            
-        case 2:
-            vc.dest = [[vc.src imageByApplyingBoxBlur3x3] retain];
-            break;
-            
-        case 3:
-            vc.dest = [[vc.src imageByApplyingSharpen3x3] retain];
-            break;
-            
-        case 4:
-            vc.dest = [[vc.src imageByApplyingEmboss3x3] retain];
+            switch (indexPath.row) {
+                case 0:
+                    vc.dest = [[vc.src imageByApplyingGaussianBlurOfSize:9 withSigmaSquared:90.0] retain];
+                    break;
+                    
+            }
             break;
             
         default:
@@ -115,15 +157,22 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"Examples:";
+    switch (section) {
+        case 0:
+            return @"Examples:";
+        case 1:
+            return @"Advanced";
+            
+        default:
+            return @"";
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return @"UIImage category for vDSP processing.\n\nhttps://github.com/gdawg/uiimage-dsp";
+            return @"UIImage category for vDSP processing.\nhttps://github.com/gdawg/uiimage-dsp\n";
             break;
-            
         default:
             break;
     }
