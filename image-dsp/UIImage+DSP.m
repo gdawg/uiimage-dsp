@@ -194,24 +194,16 @@ void _releaseDspData(void *info,const void *data,size_t size);
 -(UIImage*) imageByApplyingGaussianBlurOfSize:(int)kernelSize withSigmaSquared:(float)sigmaSq {
     float kernel[kernelSize];
     int halfSize = (int)(0.5 * kernelSize);
-    float sum = 0.0;
 
     for (int i=0; i<kernelSize; i++) {
         float distance = 1.0 * i - halfSize;
         float gausValue = [self gaussianValueFor:distance withSigmaSq:sigmaSq];
         
         kernel[i] = gausValue;
-        
-        sum += gausValue;
-    }
-    // normalise to avoid distorting brightness
-    for (int i=0; i<kernelSize; i++) {
-        float gausValue = kernel[i];
-        float normal = gausValue / sum;
-        
-        kernel[i] = normal;
     }
 
+    [self normaliseMatrix:kernel ofSize:kernelSize];
+    
     UIImage* result = self;
     
     // apply this kernel horizontally
@@ -241,6 +233,38 @@ void _releaseDspData(void *info,const void *data,size_t size);
     static const float kernel[] = { -2.0f, -1.0f, 0.0f, -1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 2.0f };
     
     return [self imageByApplyingMatrix:(float*)kernel ofSize:DSPMatrixSize3x3 clipValues:YES];
+}
+
+-(UIImage*) imageByApplyingDiagonalMotionBlur5x5 {
+    float kernel[] = { 
+        0.22222, 0.27778, 0.22222, 0.05556, 0.00000, 
+        0.27778, 0.44444, 0.44444, 0.22222, 0.05556,
+        0.22222, 0.44444, 0.55556, 0.44444, 0.22222, 
+        0.05556, 0.22222, 0.44444, 0.44444, 0.27778,
+        0.00000, 0.05556, 0.22222, 0.27778, 0.22222
+    };
+    
+    [self normaliseMatrix:kernel ofSize:5*5];
+    
+    return [self imageByApplyingMatrix:(float*)kernel ofSize:DSPMatrixSize5x5 clipValues:YES];
+}
+
+-(void) normaliseMatrix:(float*)kernel ofSize:(int)size {
+    int entries = size;
+    
+    // calculate the sum
+    float sum = 0.0;
+    for (int i=0; i<entries; i++) {
+        sum += kernel[i];
+    }
+    
+    // normalise values and store back in array
+    for (int i=0; i<entries; i++) {
+        float value = kernel[i];
+        float normal = value / sum;
+        
+        kernel[i] = normal;
+    }
 }
 
 
