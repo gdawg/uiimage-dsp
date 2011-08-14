@@ -112,8 +112,10 @@ void _releaseDspData(void *info,const void *data,size_t size);
         
         // clear all our cg stuff
         CGDataProviderRelease(dataProvider);
-        CGContextRelease(context); 
+        free(srcData);
+        free(finalData);
     }
+    CGContextRelease(context); 
     
     return destImg;
 }
