@@ -37,4 +37,11 @@
     }
 }
 
+- (void)dealloc{
+    [__dest release];
+    [__src release];
+    [__imageView release];
+    [super dealloc];
+}
+
 @end
