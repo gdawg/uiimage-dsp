@@ -33,7 +33,7 @@
             return 5;
             break;
         case 1:
-            return 1;
+            return 4;
             
         default:
             break;
@@ -83,6 +83,15 @@
             switch (indexPath.row) {
                 case 0:
                     cell.textLabel.text = @"Gaussian Blur 9x9";
+                    break;
+                case 1:
+                    cell.textLabel.text = @"Gaussian Blur 10x10";
+                    break;
+                case 2:
+                    cell.textLabel.text = @"Gaussian Blur 11x11";
+                    break;
+                case 3:
+                    cell.textLabel.text = @"Gaussian Blur 12x12";
                     break;
                     
                 default:
@@ -141,6 +150,17 @@
                     vc.dest = [[vc.src imageByApplyingGaussianBlurOfSize:9 withSigmaSquared:90.0] retain];
                     break;
                     
+                case 1:
+                    vc.dest = [[vc.src imageByApplyingGaussianBlurOfSize:10 withSigmaSquared:90.0] retain];
+                    break;
+                    
+                case 2:
+                    vc.dest = [[vc.src imageByApplyingGaussianBlurOfSize:11 withSigmaSquared:90.0] retain];
+                    break;
+
+                case 3:
+                    vc.dest = [[vc.src imageByApplyingGaussianBlurOfSize:13 withSigmaSquared:90.0] retain];
+                    break;
             }
             break;
             
