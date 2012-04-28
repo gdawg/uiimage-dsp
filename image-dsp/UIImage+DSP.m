@@ -15,11 +15,16 @@
 // utility to find position for x/y values in a matrix
 #define DSP_KERNEL_POSITION(x,y,size) (x * size + y)
 
+typedef struct {
+    CGContextRef ref;
+    void* data;
+} CGContextAndDataRef;
+
 
 @implementation UIImage (UIImage_DSP)
 
 // forward definitions of our utility methods so the important stuff's at the top
-CGContextRef _dsp_utils_CreateARGBBitmapContext (CGImageRef inImage);
+CGContextAndDataRef _dsp_utils_CreateARGBBitmapContext (CGImageRef inImage);
 void _releaseDspData(void *info,const void *data,size_t size);
 
 
@@ -28,7 +33,9 @@ void _releaseDspData(void *info,const void *data,size_t size);
     UIImage* destImg = nil;
 
     CGImageRef inImage = self.CGImage;
-    CGContextRef context = _dsp_utils_CreateARGBBitmapContext(inImage);
+     
+    CGContextAndDataRef dataRef = _dsp_utils_CreateARGBBitmapContext(inImage);
+    CGContextRef context = dataRef.ref;
     if (context == NULL) {
         return destImg; // nil
     }
@@ -113,6 +120,8 @@ void _releaseDspData(void *info,const void *data,size_t size);
         // clear all our cg stuff
         CGDataProviderRelease(dataProvider);
         CGContextRelease(context); 
+        
+        free(dataRef.data);
     }
     
     return destImg;
@@ -272,8 +281,12 @@ void _releaseDspData(void *info,const void *data,size_t size);
 // utility methods
 // taken from http://iphonedevelopment.blogspot.com/2010/03/irregularly-shaped-uibuttons.html
 // and renamed to avoid conflicts for anyone who also includes the original source
-CGContextRef _dsp_utils_CreateARGBBitmapContext (CGImageRef inImage)
+CGContextAndDataRef _dsp_utils_CreateARGBBitmapContext (CGImageRef inImage)
 {
+    CGContextAndDataRef dataRef;
+    dataRef.data = NULL;
+    dataRef.ref = nil;
+
     CGContextRef    context = NULL;
     CGColorSpaceRef colorSpace;
     void *          bitmapData;
@@ -288,13 +301,13 @@ CGContextRef _dsp_utils_CreateARGBBitmapContext (CGImageRef inImage)
     
     colorSpace = CGColorSpaceCreateDeviceRGB();
     if (colorSpace == NULL)
-        return nil;
+        return dataRef;
     
     bitmapData = malloc( bitmapByteCount );
     if (bitmapData == NULL) 
     {
         CGColorSpaceRelease( colorSpace );
-        return nil;
+        return dataRef;
     }
     context = CGBitmapContextCreate (bitmapData,
                                      pixelsWide,
@@ -310,7 +323,10 @@ CGContextRef _dsp_utils_CreateARGBBitmapContext (CGImageRef inImage)
     }
     CGColorSpaceRelease( colorSpace );
     
-    return context;
+    dataRef.ref = context;
+    dataRef.data = bitmapData;
+    
+    return dataRef;
 }
 
 // utility method to free any blocks of char data we sent to any data 
