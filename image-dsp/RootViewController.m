@@ -114,30 +114,30 @@
     DisplayImageVc* vc = [[DisplayImageVc alloc] initWithNibName:@"DisplayImageVc" bundle:nil];
 
     // load source image
-    vc.src = [[UIImage imageNamed:@"image.png"] retain];
+    vc.src = [UIImage imageNamed:@"image.png"];
 
     // transform as selected
     switch (indexPath.section) {
         case 0:
             switch (indexPath.row) {
                 case 0:
-                    vc.dest = [[vc.src imageByApplyingGaussianBlur3x3] retain];
+                    vc.dest = [vc.src imageByApplyingGaussianBlur3x3];
                     break;
                     
                 case 1:
-                    vc.dest = [[vc.src imageByApplyingGaussianBlur5x5] retain];
+                    vc.dest = [vc.src imageByApplyingGaussianBlur5x5];
                     break;
                     
                 case 2:
-                    vc.dest = [[vc.src imageByApplyingBoxBlur3x3] retain];
+                    vc.dest = [vc.src imageByApplyingBoxBlur3x3];
                     break;
                     
                 case 3:
-                    vc.dest = [[vc.src imageByApplyingSharpen3x3] retain];
+                    vc.dest = [vc.src imageByApplyingSharpen3x3];
                     break;
                     
                 case 4:
-                    vc.dest = [[vc.src imageByApplyingEmboss3x3] retain];
+                    vc.dest = [vc.src imageByApplyingEmboss3x3];
                     break;
                     
                 default:
@@ -147,7 +147,7 @@
         case 1:
             switch (indexPath.row) {
                 case 0:
-                    vc.dest = [[vc.src imageByApplyingGaussianBlurOfSize:9 withSigmaSquared:90.0] retain];
+                    vc.dest = [vc.src imageByApplyingGaussianBlurOfSize:9 withSigmaSquared:90.0];
                     break;
                     
                 case 1:
@@ -172,7 +172,7 @@
     vc.title = cell.textLabel.text;
 
     [self.navigationController pushViewController:vc animated:NO];
-    [vc autorelease];
+    [vc release];
 
 }
 
