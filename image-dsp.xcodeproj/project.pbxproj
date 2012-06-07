@@ -41,7 +41,7 @@
 		493252D5138393AB00D8B4F1 /* DisplayImageVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayImageVc.h; sourceTree = "<group>"; };
 		493252D6138393AB00D8B4F1 /* DisplayImageVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayImageVc.m; sourceTree = "<group>"; };
 		493252D7138393AB00D8B4F1 /* DisplayImageVc.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisplayImageVc.xib; sourceTree = "<group>"; };
-		493252DA138393EC00D8B4F1 /* UIImage+DSP.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "UIImage+DSP.h"; sourceTree = "<group>"; };
+		493252DA138393EC00D8B4F1 /* UIImage+DSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DSP.h"; sourceTree = "<group>"; };
 		493252DB138393EC00D8B4F1 /* UIImage+DSP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DSP.m"; sourceTree = "<group>"; };
 		493252E51383942B00D8B4F1 /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
 		493252E71383969E00D8B4F1 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -178,6 +178,9 @@
 /* Begin PBXProject section */
 		493252A81383938200D8B4F1 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
 			buildConfigurationList = 493252AB1383938200D8B4F1 /* Build configuration list for PBXProject "image-dsp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -293,6 +296,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "image-dsp/image-dsp-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "image-dsp/image-dsp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -306,6 +310,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "image-dsp/image-dsp-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "image-dsp/image-dsp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;

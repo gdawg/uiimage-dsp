@@ -46,7 +46,6 @@ typedef enum {
 -(UIImage*) imageByApplyingEmboss3x3;
 
 -(UIImage*) imageByApplyingDiagonalMotionBlur5x5;
--(UIImage*) imageByApplyingDiagonalMotionBlur7x7;
 
 // utility for normalizing matrices
 -(void) normaliseMatrix:(float*)kernel ofSize:(int)size;
