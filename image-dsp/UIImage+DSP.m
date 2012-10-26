@@ -113,7 +113,7 @@ void _releaseDspData(void *info,const void *data,size_t size);
         CGImageRef cgImage = CGImageCreate(width, height, CGBitmapContextGetBitsPerComponent(context),
                                            CGBitmapContextGetBitsPerPixel(context), CGBitmapContextGetBytesPerRow(context), CGBitmapContextGetColorSpace(context), CGBitmapContextGetBitmapInfo(context), 
                                            dataProvider, NULL, true, kCGRenderingIntentDefault);
-        destImg = [UIImage imageWithCGImage:cgImage];
+        destImg = [UIImage imageWithCGImage:cgImage scale:self.scale orientation:self.imageOrientation];
         
         CGImageRelease(cgImage);
         
