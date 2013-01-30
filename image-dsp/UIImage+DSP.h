@@ -54,7 +54,6 @@ typedef enum {
 // if you call these methods directly and do something interesting with them please consider
 // sending me details on github so that I may incorporate your awesomeness into the library
 -(UIImage*) imageByApplyingMatrix:(float*)matrix ofSize:(DSPMatrixSize)matrixSize;
--(UIImage*) imageByApplyingMatrix:(float*)matrix ofSize:(DSPMatrixSize)matrixSize;
 -(UIImage*) imageByApplyingMatrix:(float*)matrix ofSize:(DSPMatrixSize)matrixSize clipValues:(bool)shouldClip;
 
 @end
