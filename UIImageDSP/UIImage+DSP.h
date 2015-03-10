@@ -11,7 +11,7 @@
 //  Most users will just want to call one of the imageByApplying... functions.
 //  For more advanced use see the DSPMatrixSize typdef and imageByApplyingMatrix methods. 
 
-#import <Foundation/Foundation.h>
+@import UIKit;
 
 // all the different matrix sizes we support
 typedef enum {

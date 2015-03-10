@@ -1,0 +1,14 @@
+PODS:
+  - UIImageDSP (0.0.1)
+
+DEPENDENCIES:
+  - UIImageDSP (from `..`)
+
+EXTERNAL SOURCES:
+  UIImageDSP:
+    :path: ..
+
+SPEC CHECKSUMS:
+  UIImageDSP: 07a3bbaa85b2b9e5b43f023a185875b725543d64
+
+COCOAPODS: 0.35.0
