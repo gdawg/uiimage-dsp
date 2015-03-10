@@ -28,13 +28,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.blurs = @[@"Gaussian Blur 3x3",
+    self.blurs = @[@"Original",
+                   @"Gaussian Blur 3x3",
                    @"Gaussian Blur 5x5",
                    @"Box Blur 3x3",
                    @"Sharpen 3x3",
                    @"Emboss 3x3",
                    @"Gaussian Blur 9x9",
-                   @"Gaussian Blur 10x10",
                    @"Gaussian Blur 11x11",
                    @"Gaussian Blur 12x12"];
 
@@ -64,31 +64,31 @@
 
     switch (indexPath.row) {
     case 0:
-        image = [originalImage imageByApplyingGaussianBlur3x3];
+        image = originalImage;
         break;
 
     case 1:
+        image = [originalImage imageByApplyingGaussianBlur3x3];
+        break;
+
+    case 2:
         image = [originalImage imageByApplyingGaussianBlur5x5];
         break;
         
-    case 2:
+    case 3:
         image = [originalImage imageByApplyingBoxBlur3x3];
         break;
         
-    case 3:
-        image = [originalImage imageByApplyingSharpen3x3];
-        break;
-        
     case 4:
-        image = [originalImage imageByApplyingEmboss3x3];
+        image = [originalImage imageByApplyingSharpen3x3];
         break;
 
     case 5:
-        image = [originalImage imageByApplyingGaussianBlurOfSize:9 withSigmaSquared:90.0];
+        image = [originalImage imageByApplyingEmboss3x3];
         break;
 
     case 6:
-        image = [originalImage imageByApplyingGaussianBlurOfSize:10 withSigmaSquared:90.0];
+        image = [originalImage imageByApplyingGaussianBlurOfSize:9 withSigmaSquared:90.0];
         break;
 
     case 7:
