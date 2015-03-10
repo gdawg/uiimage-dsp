@@ -14,6 +14,7 @@ Pod::Spec.new do |s|
       'Sean Soper' => 'sean.soper@gmail.com'
     }
 
+    s.requires_arc = true
     s.platform     = :ios, "7.0"
     s.source       = { :git => "https://github.com/ssoper/uiimage-dsp.git", :tag => s.version.to_s }
     s.frameworks   = 'Accelerate'
