@@ -289,8 +289,8 @@ CGContextAndDataRef _dsp_utils_CreateARGBBitmapContext (CGImageRef inImage)
     CGContextRef    context = NULL;
     CGColorSpaceRef colorSpace;
     void *          bitmapData;
-    int             bitmapByteCount;
-    int             bitmapBytesPerRow;
+    NSInteger       bitmapByteCount;
+    NSInteger       bitmapBytesPerRow;
     
     
     size_t pixelsWide = CGImageGetWidth(inImage);
@@ -314,7 +314,7 @@ CGContextAndDataRef _dsp_utils_CreateARGBBitmapContext (CGImageRef inImage)
                                      8,
                                      bitmapBytesPerRow,
                                      colorSpace,
-                                     kCGImageAlphaPremultipliedFirst);
+                                     (CGBitmapInfo)kCGImageAlphaPremultipliedFirst);
     if (context == NULL)
     {
         free (bitmapData);
